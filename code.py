@@ -5,7 +5,7 @@ Created on Fri Apr 11 22:22:28 2025
 @author: manan
 """
 
-# 📦 Import required libraries
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,8 +19,9 @@ df.drop_duplicates(inplace=True)  # Remove duplicates
 df.columns = df.columns.str.strip()  # Clean column names
 df["Full or Part-Time"] = df["Full or Part-Time"].str.strip()
 df["Salary or Hourly"] = df["Salary or Hourly"].str.strip()
+print(df.info())
 
-#  Split data based on salary type
+#  Split data based on salary type 
 salaried = df[df["Salary or Hourly"] == "SALARY"]
 hourly = df[df["Salary or Hourly"] == "HOURLY"]
 
@@ -59,6 +60,15 @@ plt.show()
 plt.figure()
 sns.heatmap(df[["Annual Salary", "Hourly Rate", "Typical Hours"]].corr(), annot=True, cmap="coolwarm")
 plt.title("Correlation Heatmap")
+plt.show()
+
+
+#  Linear Regression Plot - Hourly Rate vs Typical Hours (for hourly employees)
+plt.figure()
+sns.regplot(x="Typical Hours", y="Hourly Rate", data=hourly, scatter_kws={"color": "lightgreen"}, line_kws={"color": "blue"})
+plt.title("Linear Regression: Hourly Rate vs Typical Hours")
+plt.xlabel("Typical Hours Worked")
+plt.ylabel("Hourly Rate")
 plt.show()
 
 #  Function to detect outliers and inliers using IQR
